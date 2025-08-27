@@ -1,0 +1,8 @@
+{
+  "functions": "packages/backend/convex/",
+  "node": {
+    "externalPackages": [
+      "@clerk/nextjs"
+    ]
+  }
+}
