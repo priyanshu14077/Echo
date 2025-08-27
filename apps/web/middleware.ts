@@ -14,11 +14,9 @@ const isOrgFreeRoute= createRouteMatcher([
 ]);
 
 
+export default clerkMiddleware(async (auth: any, req: NextResponse) => {
 
-export default clerkMiddleware(async (auth,req) => {
-
-  const { userId , orgId } = await auth()
-
+  const { userId, orgId } = await auth();
 
   if(!isPublicRoute(req)) {
     await auth.protect
