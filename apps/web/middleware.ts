@@ -1,5 +1,5 @@
-import { clerkMiddleware, createRouteMatcher} from '@clerk/nextjs/server'
-import { NextResponse } from 'next/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { NextRequest, NextResponse } from 'next/server';
 
 
 
@@ -10,11 +10,13 @@ const isPublicRoute= createRouteMatcher([
 const isOrgFreeRoute= createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
-  //"/org-selection(.*)"
+  "/org-selection(.*)"
 ]);
 
 
-export default clerkMiddleware(async (auth: any, req: NextResponse) => {
+export default clerkMiddleware(async (auth, req: NextRequest) => {
+  const session = await auth();
+  
 
   const { userId, orgId } = await auth();
 
@@ -23,16 +25,10 @@ export default clerkMiddleware(async (auth: any, req: NextResponse) => {
   }
 
   if (userId && !orgId && !isOrgFreeRoute(req)) {
-    const searchParams = new URLSearchParams({redirectUrl:req.url})
-
-    const orgSelector = new URL(
-      `/org-selector?${searchParams.toString()}`,
-      req.url
-    );
-
-    return NextResponse.redirect(orgSelector)
+    const searchParams = new URLSearchParams({ redirectUrl: req.url });
+    const orgSelector = new URL(`/org-selector?${searchParams.toString()}`, req.url);
+    return NextResponse.redirect(orgSelector);
   }
-  
 })
 
 export const config = {

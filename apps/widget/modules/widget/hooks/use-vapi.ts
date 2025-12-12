@@ -1,3 +1,4 @@
+"use client"
 import Vapi from "@vapi-ai/web";
 
 import { useState, useEffect } from "react";
@@ -67,7 +68,7 @@ useEffect (() => {
 
 
 
-}, []);
+},[]);
 
 
 const startCall = () => {

@@ -30,11 +30,9 @@ export default function Page() {
           <UserButton />
 
           <Button size="sm">Button</Button>
-          {JSON.stringify(users)}
+          
           <div>
-            <div>
-              <Button onClick={({}) => addUser({})}>Add User</Button>
-            </div>
+            
             <Card>
               <CardHeader>
                 <CardTitle>Card Title</CardTitle>
